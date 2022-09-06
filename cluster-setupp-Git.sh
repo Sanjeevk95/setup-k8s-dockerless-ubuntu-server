@@ -70,6 +70,8 @@ sudo kubeadm config images pull
 sudo kubeadm init 
 #Make sure you copy the "kubeadm join" command at the end of above operation, you'lll need to run it on non-master nodes.
 
+kubeadm token create --print-join-command
+
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
