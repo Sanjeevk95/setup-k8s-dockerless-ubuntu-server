@@ -24,6 +24,9 @@ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 #Install all of the necessary Kubernetes components with the command:
 sudo apt-get install kubeadm kubelet kubectl -y
 
+# apt-mark hold will prevent the package from being automatically upgraded or removed.
+apt-mark hold kubelet kubeadm kubectl containerd
+
 #Modify "sysctl.conf" to allow Linux Node’s iptables to correctly see bridged traffic
 sudo nano /etc/sysctl.conf
     #Add this line: net.bridge.bridge-nf-call-iptables = 1
@@ -51,6 +54,11 @@ sudo nano /etc/fstab
 
 #Disable swap from comand line also 
 sudo swapoff -a
+
+or 
+swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
 
 #Pull the necessary containers with the command:
 sudo kubeadm config images pull
